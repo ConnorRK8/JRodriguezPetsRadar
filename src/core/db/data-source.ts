@@ -1,0 +1,20 @@
+import { envs } from "src/config/envs";
+import { Incident } from "./entities/incident.entity";
+import { DataSource, DataSourceOptions } from "typeorm";
+import { LostPet } from "./entities/lost-pet.entity";
+import { FoundPet } from "./entities/found-pet.entity";
+
+export const dataSourceOptions: DataSourceOptions = {
+  host: envs.DB_HOST,
+  type: "postgres",
+  port: envs.DB_PORT,
+  database: envs.DB_NAME,
+  username: envs.DB_USER,
+  password: envs.DB_PASSWORD,
+  entities: [Incident, LostPet, FoundPet],
+  synchronize: false,
+  migrations: ["dist/core/db/migrations/*"],
+  // dataSource TS --- JS
+};
+
+export const dataSource = new DataSource(dataSourceOptions);
